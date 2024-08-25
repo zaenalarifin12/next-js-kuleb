@@ -65,7 +65,7 @@ const LoginForm: React.FC = () => {
             <div className="w-full bg-white  md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
               <div className="space-y-4 md:space-y-6 sm:p-2">
                 <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                  Sign in to your account
+                  Sign Up to your account
                 </h1>
                 {error && (
                   <span className="text-sm font-bold text-red-500">
