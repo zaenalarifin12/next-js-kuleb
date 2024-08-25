@@ -5,21 +5,29 @@ import { BackgroundGradient } from "@/components/ui/background-gradient";
 import { Boxes } from "@/components/ui/background-boxes";
 import { cn } from "@/lib/utils";
 import { getUser } from "@/services/user";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
+
+  const authToken = localStorage.getItem("authToken");
 
   const fetchUser = async () => {
-    console.log('Fetching user...');
-
     setLoading(true);
     setError(null);
 
     try {
+      if (!authToken || authToken.trim() === "") {
+        router.push("/auth/login")
+        return;
+      }
       const response = await getUser();
-      setUser(response.data);
+      if (response.data && response.data.username) {
+        setUser(response.data);
+      } 
     } catch (err) {
       if (axios.isAxiosError(err)) {
         setError(err.response?.data?.message || "An error occurred");
